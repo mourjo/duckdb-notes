@@ -1,10 +1,10 @@
-package org.example.utils;
+package me.mourjo.utils;
 
 import java.security.SecureRandom;
 
 public class RandomStringGenerator {
 
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789";
 
     public static String generateRandomString(String prefix, int length) {
         SecureRandom random = new SecureRandom();

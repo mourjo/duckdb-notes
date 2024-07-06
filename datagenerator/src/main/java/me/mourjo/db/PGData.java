@@ -1,4 +1,4 @@
-package org.example;
+package me.mourjo.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,21 +6,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-import org.example.entities.User;
+import me.mourjo.entities.User;
 
-public class Main {
+public class PGData {
 
-    public static void main(String[] args) {
-        createTablePostgres();
-        var users = new UserGenerator(2000).generate();
-        insertDataPostgres(users);
-    }
+    private static final String url = "jdbc:postgresql://localhost:5432/flock";
+    private static final String user = "swan";
+    private static final String password = "mallard";
 
-    static void createTablePostgres() {
-        String url = "jdbc:postgresql://localhost:5432/flock";
-        String user = "swan";
-        String password = "mallard";
-
+    public static void createTable() {
         String sql = """
             DROP TABLE IF EXISTS users;
             CREATE TABLE users (
@@ -42,11 +36,7 @@ public class Main {
         }
     }
 
-    static void insertDataPostgres(List<User> users) {
-        String url = "jdbc:postgresql://localhost:5432/flock";
-        String user = "swan";
-        String password = "mallard";
-
+    public static void insertData(List<User> users) {
         String sql = """
             INSERT into users (id, name, city, tier, created_at, updated_at)
             VALUES (?, ?, ?, ?, ?, ?)
@@ -62,11 +52,11 @@ public class Main {
                 statement.setTimestamp(5, Timestamp.from(u.createdAt().toInstant()));
                 statement.setTimestamp(6, Timestamp.from(u.updatedAt().toInstant()));
                 statement.addBatch();
-
             }
             statement.executeBatch();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

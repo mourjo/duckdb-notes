@@ -1,4 +1,4 @@
-package org.example.entities;
+package me.mourjo.entities;
 
 
 import java.time.ZonedDateTime;
