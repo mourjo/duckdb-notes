@@ -3,6 +3,7 @@ package org.example.utils;
 import java.security.SecureRandom;
 
 public class RandomStringGenerator {
+
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static String generateRandomString(String prefix, int length) {

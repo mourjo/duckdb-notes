@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.UUID;
 import org.example.entities.User;
 import org.example.utils.RandomStringGenerator;
 
@@ -39,11 +38,12 @@ public class UserGenerator {
     );
 
     private final List<String> tiers = List.of(
-      "vip",
-      "club",
-      "plus",
-      "normal"
+        "vip",
+        "club",
+        "plus",
+        "normal"
     );
+    Random r = new Random();
 
     public UserGenerator(int number) {
         userIds = new HashSet<>();
@@ -52,8 +52,6 @@ public class UserGenerator {
             userIds.add(id);
         }
     }
-
-    Random r = new Random();
 
     List<User> generate() {
         var users = new ArrayList<User>();
