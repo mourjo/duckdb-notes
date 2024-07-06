@@ -31,3 +31,6 @@ target
 .DS_Store
 **/.DS_Store
 .DS_Store
+datagenerator/target
+datagenerator/.idea
+evidence-project/
