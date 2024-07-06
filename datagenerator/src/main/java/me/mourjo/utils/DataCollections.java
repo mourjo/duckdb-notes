@@ -16,6 +16,7 @@ public class DataCollections {
         "Paris"
     );
 
+
     public static final List<String> streets = List.of(
         "Boulevard Avenue",
         "Southern Avenue",
@@ -33,6 +34,7 @@ public class DataCollections {
         "CHF",
         "USD"
     );
+
 
 //    curl -s https://raw.githubusercontent.com/hadley/data-baby-names/master/baby-names-by-state.csv | duckdb -c "
 //    COPY (
@@ -55,12 +57,14 @@ public class DataCollections {
         "Daniel"
     );
 
+
     public static final List<String> userTiers = List.of(
         "vip",
         "club",
         "plus",
         "normal"
     );
+
 
 //    curl -s https://raw.githubusercontent.com/IgorMinar/foodme/master/server/data/restaurants.csv | duckdb -c " COPY (
 //    select \"Restaurant name\" from read_csv('/dev/stdin')
@@ -79,5 +83,4 @@ public class DataCollections {
         "Luigi's House of Pies",
         "Thick and Thin"
     );
-
 }

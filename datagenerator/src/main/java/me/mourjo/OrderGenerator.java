@@ -1,25 +1,24 @@
 package me.mourjo;
 
-import static me.mourjo.utils.DataCollections.cities;
 import static me.mourjo.utils.DataCollections.currencies;
 import static me.mourjo.utils.DataCollections.streets;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 import me.mourjo.entities.Order;
 import me.mourjo.entities.User;
 import me.mourjo.utils.RandomStringGenerator;
 
 public class OrderGenerator {
+
     private Random r = new Random();
 
     private String streetFromCity(String city) {
-        return "%d %s, %s".formatted(r.nextInt(1, 20), streets.get(r.nextInt(streets.size())), city);
+        return "%d %s, %s".formatted(r.nextInt(1, 20), streets.get(r.nextInt(streets.size())),
+            city);
     }
 
     public Set<Order> generate(List<User> users, int number) {
@@ -30,10 +29,10 @@ public class OrderGenerator {
             String source = streetFromCity(user.city());
             String destination = streetFromCity(user.city());
             String createdBy = user.id();
-            double totalAmount = r.nextInt(0, 1000)+1000;
+            double totalAmount = r.nextInt(0, 1000) + 1000;
             String currency = currencies.get(r.nextInt(currencies.size()));
             if (!currency.equals("INR")) {
-                totalAmount = totalAmount/100;
+                totalAmount = totalAmount / 100;
             }
 
             double deliveryCharge = totalAmount * r.nextDouble(0, 0.3);
@@ -53,7 +52,8 @@ public class OrderGenerator {
             ZonedDateTime deliveredAt = createdAt.plusMinutes(r.nextInt(40) + 10);
             ZonedDateTime updatedAt = deliveredAt.plusSeconds(r.nextInt(60));
 
-            Order order = new Order(id, source, destination, createdBy, totalAmount, deliveryCharge, tax,
+            Order order = new Order(id, source, destination, createdBy, totalAmount, deliveryCharge,
+                tax,
                 currency, createdAt, deliveredAt, updatedAt);
 
             orders.add(order);
