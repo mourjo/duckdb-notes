@@ -30,7 +30,6 @@ public class PGData {
         try (Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.execute();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,7 +37,14 @@ public class PGData {
 
     public static void insertData(List<User> users) {
         String sql = """
-            INSERT into users (id, name, city, tier, created_at, updated_at)
+            INSERT into users (
+              id,
+              name,
+              city,
+              tier,
+              created_at,
+              updated_at
+            )
             VALUES (?, ?, ?, ?, ?, ?)
             """;
 
@@ -58,5 +64,4 @@ public class PGData {
             e.printStackTrace();
         }
     }
-
 }

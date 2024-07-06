@@ -1,7 +1,7 @@
-package me.mourjo;
+package me.mourjo.utils.data;
 
-import static me.mourjo.utils.DataCollections.currencies;
-import static me.mourjo.utils.DataCollections.streets;
+import static me.mourjo.utils.data.DataCollections.currencies;
+import static me.mourjo.utils.data.DataCollections.streets;
 
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -13,8 +13,7 @@ import me.mourjo.entities.User;
 import me.mourjo.utils.RandomStringGenerator;
 
 public class OrderGenerator {
-
-    private Random r = new Random();
+    private final Random r = new Random();
 
     private String streetFromCity(String city) {
         return "%d %s, %s".formatted(r.nextInt(1, 20), streets.get(r.nextInt(streets.size())),
@@ -41,6 +40,10 @@ public class OrderGenerator {
                 continue;
             }
 
+            if (user.tier().equals("club") && r.nextInt(5) <= 3) {
+                continue;
+            }
+
             if (user.tier().equals("vip")) {
                 if (r.nextInt(5) != 1) {
                     continue;
@@ -52,13 +55,22 @@ public class OrderGenerator {
             ZonedDateTime deliveredAt = createdAt.plusMinutes(r.nextInt(40) + 10);
             ZonedDateTime updatedAt = deliveredAt.plusSeconds(r.nextInt(60));
 
-            Order order = new Order(id, source, destination, createdBy, totalAmount, deliveryCharge,
-                tax,
-                currency, createdAt, deliveredAt, updatedAt);
-
-            orders.add(order);
+            orders.add(
+                new Order(
+                    id,
+                    source,
+                    destination,
+                    createdBy,
+                    totalAmount,
+                    deliveryCharge,
+                    tax,
+                    currency,
+                    createdAt,
+                    deliveredAt,
+                    updatedAt
+                )
+            );
         }
         return orders;
     }
-
 }

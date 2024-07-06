@@ -48,7 +48,19 @@ public class MySQLData {
 
     public static void insertOrders(Set<Order> orders) {
         String sql = """
-            INSERT into orders (id, source, destination, created_by, total_amount, delivery_charge, tax_amount, currency, created_at, delivered_at, updated_at)
+            INSERT into orders (
+              id,
+              source,
+              destination,
+              created_by,
+              total_amount,
+              delivery_charge,
+              tax_amount,
+              currency,
+              created_at,
+              delivered_at,
+              updated_at
+            )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
 

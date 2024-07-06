@@ -1,8 +1,8 @@
-package me.mourjo;
+package me.mourjo.utils.data;
 
-import static me.mourjo.utils.DataCollections.cities;
-import static me.mourjo.utils.DataCollections.personNames;
-import static me.mourjo.utils.DataCollections.userTiers;
+import static me.mourjo.utils.data.DataCollections.cities;
+import static me.mourjo.utils.data.DataCollections.personNames;
+import static me.mourjo.utils.data.DataCollections.userTiers;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -16,8 +16,7 @@ import me.mourjo.utils.RandomStringGenerator;
 public class UserGenerator {
 
     private final Set<String> userIds;
-
-    Random r = new Random();
+    private Random r = new Random();
 
     public UserGenerator(int number) {
         userIds = new HashSet<>();
@@ -27,7 +26,7 @@ public class UserGenerator {
         }
     }
 
-    List<User> generate() {
+    public List<User> generate() {
         var users = new ArrayList<User>();
         for (String id : userIds) {
             String name = personNames.get(r.nextInt(personNames.size()));
