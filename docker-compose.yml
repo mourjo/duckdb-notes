@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:16.3
+    container_name: postgres_flock
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=flock
+      - POSTGRES_PASSWORD=mallard
+      - POSTGRES_USER=swan
+    ports:
+      - '5432:5432'
+    volumes:
+      - './pg/volumes/postgres:/var/lib/postgresql/data'
+
+  mysql:
+    image: mysql:9.0.0
+    restart: always
+    container_name: mysql_flock
+    environment:
+      - MYSQL_DATABASE=flock
+      - MYSQL_ROOT_PASSWORD=mallard
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_PASSWORD=mallard
+      - MYSQL_USER=swan
+    ports:
+      - '3306:3306'
+    volumes:
+      - './mysql:/var/lib/mysql'
