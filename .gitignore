@@ -36,3 +36,5 @@ datagenerator/.idea
 evidence-project/
 data
 taxi_data
+mysql
+pg
