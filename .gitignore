@@ -34,3 +34,5 @@ target
 datagenerator/target
 datagenerator/.idea
 evidence-project/
+data
+taxi_data
