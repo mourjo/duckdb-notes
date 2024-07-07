@@ -50,6 +50,7 @@ public class OrderGenerator {
                 }
                 deliveryCharge = totalAmount * r.nextDouble(0, 0.1);
             }
+
             double tax = totalAmount * r.nextDouble(0, 0.2);
             ZonedDateTime createdAt = ZonedDateTime.now().minusMinutes(r.nextInt(10000));
             ZonedDateTime deliveredAt = createdAt.plusMinutes(r.nextInt(40) + 10);
@@ -57,19 +58,22 @@ public class OrderGenerator {
 
             orders.add(
                 new Order(
-                    id,
-                    source,
-                    destination,
-                    createdBy,
-                    totalAmount,
-                    deliveryCharge,
-                    tax,
-                    currency,
-                    createdAt,
-                    deliveredAt,
-                    updatedAt
+                    id, source, destination,
+                    createdBy, totalAmount, deliveryCharge, tax,
+                    currency, createdAt, deliveredAt, updatedAt
                 )
             );
+
+            if (currency.equals("INR") && r.nextBoolean()) {
+                orders.add(
+                    new Order(
+                    RandomStringGenerator.generateRandomString("ord", 5),
+                    source, destination, createdBy,
+                    totalAmount, deliveryCharge, tax,
+                    currency, createdAt, deliveredAt, updatedAt
+                    )
+                );
+            }
         }
         return orders;
     }
