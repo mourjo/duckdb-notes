@@ -16,6 +16,14 @@ public class DataCollections {
         "Paris"
     );
 
+    public static final List<String> transactionFailureReasons = List.of(
+        "REVERSED_PAYMENT",
+        "CUSTOMER_SUPPORT_REFUND",
+        "INSUFFICIENT_FUNDS",
+        "MANUAL_ADJUSTMENT"
+    );
+
+    public static final List<String> devices = List.of("ios", "web", "android");
 
     public static final List<String> streets = List.of(
         "Boulevard Avenue",
@@ -36,7 +44,7 @@ public class DataCollections {
     );
 
 
-//    curl -s https://raw.githubusercontent.com/hadley/data-baby-names/master/baby-names-by-state.csv | duckdb -c "
+    //    curl -s https://raw.githubusercontent.com/hadley/data-baby-names/master/baby-names-by-state.csv | duckdb -c "
 //    COPY (
 //        select name from read_csv('/dev/stdin', ignore_errors=true, columns = {'state':'VARCHAR', year:'varchar', 'name': 'VARCHAR', 'number': 'int128', 'sex':'VARCHAR',})
 //    group by name
@@ -66,7 +74,7 @@ public class DataCollections {
     );
 
 
-//    curl -s https://raw.githubusercontent.com/IgorMinar/foodme/master/server/data/restaurants.csv | duckdb -c " COPY (
+    //    curl -s https://raw.githubusercontent.com/IgorMinar/foodme/master/server/data/restaurants.csv | duckdb -c " COPY (
 //    select \"Restaurant name\" from read_csv('/dev/stdin')
 //        ) TO '/dev/stdout' (FORMAT CSV)
 //        "

@@ -13,6 +13,7 @@ import me.mourjo.entities.User;
 import me.mourjo.utils.RandomStringGenerator;
 
 public class OrderGenerator {
+
     private final Random r = new Random();
 
     private String streetFromCity(String city) {
@@ -67,10 +68,10 @@ public class OrderGenerator {
             if (currency.equals("INR") && r.nextBoolean()) {
                 orders.add(
                     new Order(
-                    RandomStringGenerator.generateRandomString("ord", 5),
-                    source, destination, createdBy,
-                    totalAmount, deliveryCharge, tax,
-                    currency, createdAt, deliveredAt, updatedAt
+                        RandomStringGenerator.generateRandomString("ord", 5),
+                        source, destination, createdBy,
+                        totalAmount, deliveryCharge, tax,
+                        currency, createdAt, deliveredAt, updatedAt
                     )
                 );
             }
