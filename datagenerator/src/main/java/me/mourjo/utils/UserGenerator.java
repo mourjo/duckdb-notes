@@ -1,8 +1,8 @@
-package me.mourjo.utils.data;
+package me.mourjo.utils;
 
-import static me.mourjo.utils.data.DataCollections.cities;
-import static me.mourjo.utils.data.DataCollections.personNames;
-import static me.mourjo.utils.data.DataCollections.userTiers;
+import static me.mourjo.utils.DataCollections.cities;
+import static me.mourjo.utils.DataCollections.personNames;
+import static me.mourjo.utils.DataCollections.userTiers;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import me.mourjo.entities.User;
-import me.mourjo.utils.RandomStringGenerator;
 
 public class UserGenerator {
 

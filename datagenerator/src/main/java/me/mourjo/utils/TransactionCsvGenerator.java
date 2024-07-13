@@ -1,7 +1,7 @@
 package me.mourjo.utils;
 
-import static me.mourjo.utils.data.DataCollections.devices;
-import static me.mourjo.utils.data.DataCollections.transactionFailureReasons;
+import static me.mourjo.utils.DataCollections.devices;
+import static me.mourjo.utils.DataCollections.transactionFailureReasons;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -20,7 +20,7 @@ import java.util.UUID;
 import me.mourjo.entities.Order;
 import me.mourjo.entities.User;
 
-public class AdjustedTransactionGenerator {
+public class TransactionCsvGenerator {
 
     private static final Random r = new Random();
 

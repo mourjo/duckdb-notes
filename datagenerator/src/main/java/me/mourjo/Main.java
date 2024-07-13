@@ -2,9 +2,9 @@ package me.mourjo;
 
 import me.mourjo.db.MySQLData;
 import me.mourjo.db.PGData;
-import me.mourjo.utils.AdjustedTransactionGenerator;
-import me.mourjo.utils.data.OrderGenerator;
-import me.mourjo.utils.data.UserGenerator;
+import me.mourjo.utils.TransactionCsvGenerator;
+import me.mourjo.utils.OrderGenerator;
+import me.mourjo.utils.UserGenerator;
 
 public class Main {
 
@@ -15,7 +15,7 @@ public class Main {
         PGData.insertData(users);
         MySQLData.createTable();
         MySQLData.insertOrders(orders);
-        AdjustedTransactionGenerator.generateCSV("adjusted_transactions.csv", users, orders,
+        TransactionCsvGenerator.generateCSV("adjusted_transactions.csv", users, orders,
             100000);
     }
 }

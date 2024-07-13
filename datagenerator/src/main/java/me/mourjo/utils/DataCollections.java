@@ -1,4 +1,4 @@
-package me.mourjo.utils.data;
+package me.mourjo.utils;
 
 import java.util.List;
 

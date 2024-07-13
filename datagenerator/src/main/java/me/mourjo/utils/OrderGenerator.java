@@ -1,7 +1,7 @@
-package me.mourjo.utils.data;
+package me.mourjo.utils;
 
-import static me.mourjo.utils.data.DataCollections.currencies;
-import static me.mourjo.utils.data.DataCollections.streets;
+import static me.mourjo.utils.DataCollections.currencies;
+import static me.mourjo.utils.DataCollections.streets;
 
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -10,7 +10,6 @@ import java.util.Random;
 import java.util.Set;
 import me.mourjo.entities.Order;
 import me.mourjo.entities.User;
-import me.mourjo.utils.RandomStringGenerator;
 
 public class OrderGenerator {
 
