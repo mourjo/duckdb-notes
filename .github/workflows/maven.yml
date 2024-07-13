@@ -30,3 +30,11 @@ jobs:
       run:
         cd datagenerator ;
         mvn clean package
+    - name: Run docker-compose
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        compose-file: "./docker-compose.yml"
+    - name: Execute data generator
+      run:
+        cd datagenerator ;
+        mvn compile exec:java -Dexec.mainClass=me.mourjo.Main
