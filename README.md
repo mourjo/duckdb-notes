@@ -47,10 +47,10 @@ REVERSED_PAYMENT 62815
 I argue the above is harder to read when compared to SQL with `duckdb`:
 
 ```sql
-select reason, count(*) adjustment_reason from 'datagenerator/adjusted_transactions.csv'
+select reason, count(*) AS num_adjustments from 'datagenerator/adjusted_transactions.csv'
        group by 1 order by 2 desc;
 ┌─────────────────────────┬───────────────────┐
-│         reason          │ adjustment_reason │
+│         reason          │  num_adjustments  │
 │         varchar         │       int64       │
 ├─────────────────────────┼───────────────────┤
 │ REVERSED_PAYMENT        │             62815 │
