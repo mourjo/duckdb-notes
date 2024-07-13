@@ -50,10 +50,28 @@ jobs:
         duckdb -c "
         ATTACH 'host=localhost port=3306 database=flock user=swan password=mallard' AS mysql_db (TYPE mysql_scanner, READ_ONLY);
         ATTACH 'host=localhost port=5432 dbname=flock user=swan password=mallard' AS pg_db (TYPE postgres_scanner, READ_ONLY);
+
         select tier,
-        count(o.id) AS num_orders,
-        sum(o.delivery_charge)/sum(total_amount) AS delivery_charge_rate
+                count(o.id) AS num_orders,
+                sum(o.delivery_charge)/sum(total_amount) AS delivery_charge_rate
         from pg_db.users u join mysql_db.orders o
         on u.id = o.created_by
         group by tier order by 1;"
-        
+    - name: duckdb read from joining mysql,pg,csv
+      run: >
+        duckdb -c "
+        ATTACH 'host=localhost port=3306 database=flock user=swan password=mallard' AS mysql_db (TYPE mysql_scanner, READ_ONLY);
+        ATTACH 'host=localhost port=5432 dbname=flock user=swan password=mallard' AS pg_db (TYPE postgres_scanner, READ_ONLY);
+
+        select reason,
+                user_id,
+                tier,
+                total_amount,
+                order_id,
+                tax_amount,
+                delivery_charge,
+                currency,
+                adj.timestamp
+        from pg_db.users u join mysql_db.orders o on u.id = o.created_by 
+        join 'adjusted_transactions.csv' adj on  adj.user_id = u.id
+        order by o.id, adj.timestamp limit 50; "  
