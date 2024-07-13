@@ -1,6 +1,8 @@
 # duckdb-notes
 This is a companion project that show cases some of [DuckDb's](http://duckdb.org) capbilities.
 
+![example workflow](https://github.com/mourjo/duckdb-notes/actions/workflows/maven.yml/badge.svg)
+
 ## Multiple files and databases
 This repository reads data from multiple files and DBs:
 - MySQL
@@ -27,6 +29,7 @@ Kick off the data generation using this (takes around a minute):
 cd datagenerator
 mvn compile exec:java -Dexec.mainClass="me.mourjo.Main"
 ```
+Both the data generation and the queries that follow are run as part of Github actions, check out [the last run here](https://github.com/mourjo/duckdb-notes/actions).
 
 ## Query the CSV file using SQL
 Let's try to find the reasons for transaction adjustments using traditional shell commands:
