@@ -17,5 +17,6 @@ public class Main {
         MySQLData.insertOrders(orders);
         TransactionCsvGenerator.generateCSV("adjusted_transactions.csv", users, orders,
             100000);
+        System.out.println("All done!");
     }
 }

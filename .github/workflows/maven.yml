@@ -26,14 +26,14 @@ jobs:
       with:
         java-version: '21'
         distribution: 'zulu'
-    - name: Build with Maven
-      run:
-        cd datagenerator ;
-        mvn clean package
     - name: Run docker-compose
       uses: hoverkraft-tech/compose-action@v2.0.1
       with:
         compose-file: "./docker-compose.yml"
+    - name: Build with Maven
+      run:
+        cd datagenerator ;
+        mvn clean package
     - name: Execute data generator
       run:
         cd datagenerator ;
