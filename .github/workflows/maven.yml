@@ -29,4 +29,4 @@ jobs:
     - name: Build with Maven
       run:
         cd datagenerator ;
-        mvn -B package --file pom.xml
+        mvn clean package

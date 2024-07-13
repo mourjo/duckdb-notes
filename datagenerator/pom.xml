@@ -8,7 +8,7 @@
     <dependency>
       <artifactId>postgresql</artifactId>
       <groupId>org.postgresql</groupId>
-      <version>42.6.0</version>
+      <version>42.6.1</version>
     </dependency>
 
     <dependency>
