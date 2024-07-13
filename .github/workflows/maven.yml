@@ -38,3 +38,10 @@ jobs:
       run:
         cd datagenerator ;
         mvn compile exec:java -Dexec.mainClass=me.mourjo.Main
+    - name: duckdb setup
+      uses: opt-nc/setup-duckdb-action@v1.0.7
+      with:
+        version: v0.10.1
+    - name: duckdb read from csv
+      run:
+        duckdb -c "select reason, count(*) adjustment_reason from 'datagenerator/adjusted_transactions.csv' group by 1 order by 2 desc;"
