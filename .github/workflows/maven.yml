@@ -30,6 +30,10 @@ jobs:
       uses: hoverkraft-tech/compose-action@v2.0.1
       with:
         compose-file: "./docker-compose.yml"
+    - name: duckdb setup
+      uses: opt-nc/setup-duckdb-action@v1.0.7
+      with:
+        version: v0.10.1
     - name: Build with Maven
       run:
         cd datagenerator ;
@@ -38,10 +42,18 @@ jobs:
       run:
         cd datagenerator ;
         mvn compile exec:java -Dexec.mainClass=me.mourjo.Main
-    - name: duckdb setup
-      uses: opt-nc/setup-duckdb-action@v1.0.7
-      with:
-        version: v0.10.1
     - name: duckdb read from csv
       run:
         duckdb -c "select reason, count(*) adjustment_reason from 'datagenerator/adjusted_transactions.csv' group by 1 order by 2 desc;"
+    - name: duckdb read from joining mysql,pg
+      run: >
+        duckdb -c "
+        ATTACH 'host=localhost port=3306 database=flock user=swan password=mallard' AS mysql_db (TYPE mysql_scanner, READ_ONLY);
+        ATTACH 'host=localhost port=5432 dbname=flock user=swan password=mallard' AS pg_db (TYPE postgres_scanner, READ_ONLY);
+        select tier,
+        count(o.id) AS num_orders,
+        sum(o.delivery_charge)/sum(total_amount) AS delivery_charge_rate
+        from pg_db.users u join mysql_db.orders o
+        on u.id = o.created_by
+        group by tier order by 1;"
+        
