@@ -7,12 +7,7 @@ This repository reads data from multiple files and DBs:
 - Postgres
 - CSV file
 
-## Generation of data
-The datagenerator project inserts made-up food delivery data into `MySQL`, `PostgreSQL` and
-generates a CSV file `adjusted_transactions.csv` that tries to mimic a report sent by email after
-the fact about adjusted transactions.
-
-## Reading multiple databases
+## Set up MySQL and PostgreSQL using Docker
 To showcase reading data from multiple files and DBs, first start MySQL and PostgreSQL using the 
 docker compose command
 ```bash
@@ -22,13 +17,49 @@ This starts up
 - MySQL on port 3306
 - PostgreSQL on port 5432
 
-Then generate data using the Java project (takes around a minute):
+## Generate data
+The datagenerator project inserts made-up food delivery data into `MySQL`, `PostgreSQL` and
+generates a CSV file `adjusted_transactions.csv` that tries to mimic a report sent by email after
+the fact about adjusted transactions.
+
+Kick off the data generation using this (takes around a minute):
 ```bash
 cd datagenerator
 mvn compile exec:java -Dexec.mainClass="me.mourjo.Main"
 ```
 
-Now use DuckDB to query across the two databases inside a `duckdb` shell:
+## Query the CSV file using SQL
+Let's try to find the reasons for transaction adjustments using traditional shell commands:
+```bash
+awk -F',' \
+  'NR > 1 {count[$6]++} END \
+  {for (value in count) print value, count[value]}' \
+  datagenerator/adjusted_transactions.csv | sort
+CUSTOMER_SUPPORT_REFUND 8494
+INSUFFICIENT_FUNDS 1232
+MANUAL_ADJUSTMENT 162
+REVERSED_PAYMENT 62815
+```
+
+I argue the above is harder to read when compared to SQL with `duckdb`:
+
+```sql
+select reason, count(*) adjustment_reason from 'datagenerator/adjusted_transactions.csv'
+       group by 1 order by 2 desc;
+┌─────────────────────────┬───────────────────┐
+│         reason          │ adjustment_reason │
+│         varchar         │       int64       │
+├─────────────────────────┼───────────────────┤
+│ REVERSED_PAYMENT        │             62815 │
+│ CUSTOMER_SUPPORT_REFUND │              8494 │
+│ INSUFFICIENT_FUNDS      │              1232 │
+│ MANUAL_ADJUSTMENT       │               162 │
+└─────────────────────────┴───────────────────┘
+```
+
+## Join tables from MySQL with tables from PostgreSQL
+
+Use DuckDB to query across the two databases inside a `duckdb` shell:
 ```sql
 ATTACH 'host=localhost port=3306 database=flock user=swan password=mallard' 
 AS mysql_db (TYPE mysql_scanner, READ_ONLY);
@@ -53,24 +84,10 @@ select tier,
 └─────────┴────────────┴──────────────────────┘
 ```
 
-Read the CSV sent to us by email:
+## Join multiple tables from multiple databases with static files 
 
-```sql
-select reason, count(*) adjustment_reason from 'adjusted_transactions.csv'
-       group by 1 order by 2 desc;
-┌─────────────────────────┬───────────────────┐
-│         reason          │ adjustment_reason │
-│         varchar         │       int64       │
-├─────────────────────────┼───────────────────┤
-│ REVERSED_PAYMENT        │             62815 │
-│ CUSTOMER_SUPPORT_REFUND │              8494 │
-│ INSUFFICIENT_FUNDS      │              1232 │
-│ MANUAL_ADJUSTMENT       │               162 │
-└─────────────────────────┴───────────────────┘
-```
+Take the CSV file sent to us by email to join across production data in different databases inside a `duckdb` shell:
 
-
-Join CSV, PostgreSQL and MySQL:
 ```sql
 select reason,
        user_id,
@@ -82,7 +99,7 @@ select reason,
        currency,
        adj.timestamp
 from pg_db.users u join mysql_db.orders o on u.id = o.created_by 
-     join 'adjusted_transactions.csv' adj on  adj.user_id = u.id
+     join 'datagenerator/adjusted_transactions.csv' adj on  adj.user_id = u.id
 order by o.id, adj.timestamp limit 10;
 
 ┌──────────────────┬────────────┬─────────┬───────────────┬───────────┬───────────────┬─────────────────┬──────────┬────────────────────────────┐
