@@ -20,7 +20,7 @@ import java.util.UUID;
 import me.mourjo.entities.Order;
 import me.mourjo.entities.User;
 
-public class TransactionCsvGenerator {
+public class TransactionAdjustmentCsvGenerator {
 
     private static final Random r = new Random();
 

@@ -73,5 +73,5 @@ jobs:
                 currency,
                 adj.timestamp
         from pg_db.users u join mysql_db.orders o on u.id = o.created_by 
-        join 'adjusted_transactions.csv' adj on  adj.user_id = u.id
+        join 'datagenerator/adjusted_transactions.csv' adj on  adj.user_id = u.id
         order by o.id, adj.timestamp limit 50; "  
