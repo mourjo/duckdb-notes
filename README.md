@@ -1,5 +1,5 @@
 # duckdb-notes
-This is a companion project that show cases some of [DuckDb's](http://duckdb.org) capbilities.
+This is a companion project to [this blog post](https://mourjo.medium.com/three-reasons-why-developers-should-use-duckdb-0884c8e9f02a) that show cases some of DuckDb's capbilities.
 
 ![example workflow](https://github.com/mourjo/duckdb-notes/actions/workflows/maven.yml/badge.svg)
 
